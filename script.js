@@ -1,5 +1,9 @@
 let allumettes = 50;
 let joueur = 1;
+let nomberJoueurs = Number(prompt("Combien de joueurs ?"));
+while (isNaN(nomberJoueurs) || nomberJoueurs < 2) {
+  nomberJoueurs = Number(prompt("Entre un nomber de joueurs(2 minimum)"));
+}
 function enleverAllumettes(allumette) {
   allumettes = allumettes - allumette;
 }
@@ -12,8 +16,8 @@ while (allumettes > 0) {
     enleverAllumettes(choix);
     console.log(allumettes);
     if (allumettes > 0) {
-      if (joueur === 1) {
-        joueur = 2;
+      if (joueur < nomberJoueurs ) {
+        joueur = joueur + 1;
       } else {
         joueur = 1;
       }
