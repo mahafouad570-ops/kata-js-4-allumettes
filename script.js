@@ -1,3 +1,10 @@
+const tas = document.getElementById("tas");
+const message = document.getElementById("message");
+const inputChoix = document.getElementById("choix");
+const boutonJouer = document.getElementById("jouer");
+
+
+
 let allumettes = 50;
 let joueur = 1;
 let nomberJoueurs = Number(prompt("Combien de joueurs ?"));
@@ -7,11 +14,18 @@ while (isNaN(nomberJoueurs) || nomberJoueurs < 2) {
 function enleverAllumettes(allumette) {
   allumettes = allumettes - allumette;
 }
+function afficher() {
+  tas.textContent = "|".repeat(allumettes);
+  message.textContent = "joueur " + joueur + " , à toi !";
+}
 
-while (allumettes > 0) {
-  let choix = prompt("Joueur " + joueur + " , Combien d'allumettes ?");
+afficher();
+
+boutonJouer.addEventListener("click" , function() {
+  let choix = Number(inputChoix.value);
+  // let choix = prompt("Joueur " + joueur + " , Combien d'allumettes ?");
   if (choix > 6 || choix < 1 || choix > allumettes || isNaN(choix)) {
-    alert("Choisis un nombre entre 1 et 6 " + " il reste " + allumettes + " allumettes");
+    message.textContent = "Choisis un nombre entre 1 et 6 " + " il reste " + allumettes + " allumettes";
   } else {
     enleverAllumettes(choix);
     console.log(allumettes);
@@ -21,7 +35,12 @@ while (allumettes > 0) {
       } else {
         joueur = 1;
       }
+      afficher();
+    } else {
+      tas.textContent = "";
+      message.textContent = "Bravo joueur " + joueur + " , tu as gagné";
+      boutonJouer.disabled = true;
     }
   }
-}
-alert("Bravo joueur " + joueur + ", tu as gagné");
+  inputChoix.value = "";
+})
